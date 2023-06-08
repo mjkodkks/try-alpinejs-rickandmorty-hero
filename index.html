@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty Hero</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+    <div x-data="{ characters: [] }" x-init="
+        fetch('https://rickandmortyapi.com/api/character')
+        .then(response => response.json())
+        .then(data => {
+            const hello = 'hello'
+            characters = data.results
+            console.log(characters)
+        })
+        ">
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+            <template x-for="character in characters" :key="character.id">
+                <div style="display: flex; gap: 2rem; border: solid 1px; max-width: 400px; border-radius: 0.3rem;">
+                    <img x-bind:src="character.image" x-bind:alt="character.name" style="aspect-ratio: 1/1; width: 100px;">
+                    <div x-html="character.id" style="width: 2rem; display: flex; justify-content: center; align-items: center;"></div>
+                    <div x-html="character.name" style="width: 10rem; display: flex; justify-content: center; align-items: center;"></div>
+                </div>
+            </template>
+        </div>
+    </div>
+</body>
+</html>
